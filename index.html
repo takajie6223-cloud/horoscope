@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星座小站 · 查星座 · 看配对 · 每日运势</title>
+<meta name="description" content="纯前端星座小站：12星座基础信息、按生日查星座、恋爱配对指数、每日运势、配对排行榜与星座百科。零依赖，离线可用。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">✨ 星座小站</div>
+    <nav class="nav" id="mainNav" aria-label="主导航">
+      <button class="nav-btn active" data-tab="query">🔍 星座查询</button>
+      <button class="nav-btn" data-tab="compat">💕 星座配对</button>
+      <button class="nav-btn" data-tab="fortune">🔮 今日运势</button>
+      <button class="nav-btn" data-tab="rank">🏆 配对排行</button>
+      <button class="nav-btn" data-tab="wiki">📖 星座百科</button>
+    </nav>
+    <button class="icon-btn" id="themeToggle" title="切换深色/浅色主题" aria-label="切换主题">☀️</button>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- 星座查询 -->
+  <section class="tab active" id="tab-query">
+    <div class="hero">
+      <h1>探索你的<span class="grad">星座密码</span></h1>
+      <p class="muted">12 星座基础信息 · 按生日查星座 · 数据离线内置</p>
+    </div>
+
+    <div class="panel">
+      <h2>🎂 按生日查星座</h2>
+      <div class="row">
+        <input type="date" id="birthdayInput" aria-label="选择你的出生日期">
+        <span class="muted small self-center">选择日期，自动识别星座</span>
+      </div>
+      <div id="birthdayResult" class="bday-result"></div>
+    </div>
+
+    <div class="panel">
+      <h2>⭐ 12 星座图鉴</h2>
+      <p class="muted small">点击卡片查看详细信息</p>
+      <div class="sign-grid" id="signGrid"></div>
+    </div>
+  </section>
+
+  <!-- 星座配对 -->
+  <section class="tab" id="tab-compat">
+    <div class="hero">
+      <h1>你们的<span class="grad">来电指数</span>有多高？</h1>
+      <p class="muted">各选一个星座，查看恋爱匹配度与相处建议</p>
+    </div>
+    <div class="panel">
+      <h2>1️⃣ 选择你的星座</h2>
+      <div class="chips" id="compatPickA"></div>
+      <h2>2️⃣ 选择 TA 的星座</h2>
+      <div class="chips" id="compatPickB"></div>
+      <div class="center">
+        <button class="btn" id="compatGo">💕 开始配对</button>
+      </div>
+      <div id="compatResult" class="compat-result"></div>
+    </div>
+  </section>
+
+  <!-- 今日运势 -->
+  <section class="tab" id="tab-fortune">
+    <div class="hero">
+      <h1>今天的<span class="grad">星星</span>怎么说？</h1>
+      <p class="muted">每日运势 · 爱情 / 事业 / 财运 / 健康</p>
+    </div>
+    <div class="panel">
+      <div class="row">
+        <select id="fortuneSign" aria-label="选择星座"></select>
+        <span class="muted small self-center" id="fortuneDate"></span>
+      </div>
+      <div id="fortuneResult" class="fortune-result"></div>
+    </div>
+  </section>
+
+  <!-- 配对排行 -->
+  <section class="tab" id="tab-rank">
+    <div class="hero">
+      <h1>谁是你的<span class="grad">天选之人</span>？</h1>
+      <p class="muted">你的星座与全部 12 星座的匹配度排行榜</p>
+    </div>
+    <div class="panel">
+      <div class="row">
+        <select id="rankSign" aria-label="选择你的星座"></select>
+        <span class="muted small self-center">按匹配指数从高到低排列</span>
+      </div>
+      <div id="rankList" class="rank-list"></div>
+    </div>
+  </section>
+
+  <!-- 星座百科 -->
+  <section class="tab" id="tab-wiki">
+    <div class="hero">
+      <h1>星座<span class="grad">冷知识</span>小课堂</h1>
+      <p class="muted">看懂四元素、阴阳与三方宫，就懂了配对的底层逻辑</p>
+    </div>
+    <div class="panel">
+      <h2>🧭 四元素（火 / 土 / 风 / 水）</h2>
+      <div class="wiki-grid" id="wikiElements"></div>
+    </div>
+    <div class="panel">
+      <h2>☯️ 阴阳极性</h2>
+      <div class="wiki-grid" id="wikiPolarity"></div>
+    </div>
+    <div class="panel">
+      <h2>🌀 三方宫（基本 / 固定 / 变动）</h2>
+      <div class="wiki-grid" id="wikiModes"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>星座小站 · 仅供娱乐，认真你就输了 😉</p>
+    <p><a href="https://github.com/takajie6223-cloud/horoscope" target="_blank" rel="noopener">GitHub 开源仓库</a> · 纯前端实现 · 无需后端与接口</p>
+  </div>
+</footer>
+
+<!-- 星座详情弹窗 -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-label="星座详情">
+    <button class="modal-close" id="modalClose" aria-label="关闭弹窗">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="js/data.js"></script>
+<script src="js/fortune.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
