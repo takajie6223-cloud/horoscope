@@ -34,8 +34,7 @@ python -m http.server 8080
 ├── css/style.css         # 样式（深浅双主题）
 ├── js/data.js            # 12 星座数据 + 78 组配对 + 运势文案库
 ├── js/fortune.js         # 每日运势算法
-├── js/main.js            # 页面交互逻辑
-└── .github/workflows/pages.yml   # GitHub Pages 自动部署
+└── js/main.js            # 页面交互逻辑
 ```
 
 ## 实现说明
@@ -47,8 +46,8 @@ python -m http.server 8080
 ## 部署到自己的 GitHub
 
 1. Fork 或推送到你自己的仓库
-2. 仓库 Settings → Pages → Build and deployment → Source 选择 **GitHub Actions**
-3. 推送后自动部署，访问地址为 `https://<用户名>.github.io/<仓库名>/`
+2. 仓库 Settings → Pages → Build and deployment → Branch 选择 **main**、目录 **/ (root)**，保存
+3. 之后每次推送 main 分支都会自动发布，访问地址为 `https://<用户名>.github.io/<仓库名>/`
 
 ## 免责声明
 
