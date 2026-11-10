@@ -11,8 +11,24 @@ const signByKey = k => SIGNS.find(s => s.key === k);
 const ELEMENT_NAME = { fire: '火象', earth: '土象', air: '风象', water: '水象' };
 const elementName = k => ELEMENT_NAME[k] || '';
 
+function isValidDate(m, d, y) {
+  if (!Number.isInteger(m) || !Number.isInteger(d) || m < 1 || m > 12 || d < 1 || d > 31) {
+    return false;
+  }
+  const maxDays = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  if (d > maxDays[m]) return false;
+  if (y != null && Number.isInteger(y) && y > 0) {
+    const dt = new Date(y, m - 1, d);
+    if (dt.getFullYear() !== y || dt.getMonth() !== m - 1 || dt.getDate() !== d) {
+      return false;
+    }
+  }
+  return true;
+}
+
 /* 按月 / 日判断所属星座（摩羯座跨年特殊处理） */
 function getSignByDate(m, d) {
+  if (!isValidDate(m, d)) return null;
   for (const s of SIGNS) {
     const [sm, sd] = s.start, [em, ed] = s.end;
     if (sm <= em) {
@@ -171,6 +187,11 @@ function initBirthday() {
     const box = $('#birthdayResult');
     if (!v) { box.innerHTML = ''; box.classList.remove('show'); return; }
     const parts = v.split('-').map(Number);
+    if (parts.length < 3 || !isValidDate(parts[1], parts[2], parts[0])) {
+      box.innerHTML = '<p class="muted">未能识别该日期，请检查输入。</p>';
+      box.classList.add('show');
+      return;
+    }
     const s = getSignByDate(parts[1], parts[2]);
     if (!s) {
       box.innerHTML = '<p class="muted">未能识别该日期，请检查输入。</p>';
